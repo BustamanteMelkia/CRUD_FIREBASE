@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { HeroModel } from 'src/app/models/hero.model';
 // Services
 import { HerosService } from 'src/app/services/heros.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-heroe',
@@ -15,7 +16,8 @@ import { HerosService } from 'src/app/services/heros.service';
 export class HeroeComponent implements OnInit {
   hero: HeroModel;
   constructor(
-    private herosService: HerosService
+    private herosService: HerosService,
+    private activatedRoute: ActivatedRoute,
   ) { 
     this.hero={
       name: '',
@@ -25,6 +27,16 @@ export class HeroeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const id = this.activatedRoute.snapshot.params['id'];
+    if(id != 'nuevo'){
+      this.herosService.getHero(id).subscribe(
+        (hero: HeroModel)=> {
+          this.hero = hero;
+          this.hero.id = id;
+          console.log(this.hero);     
+        }
+      )
+    }
   }
 
   onSave( form: NgForm){

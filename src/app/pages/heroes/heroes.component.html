@@ -7,7 +7,7 @@
     </div>   
 </div>
 
-<table class="table mt-5">
+<table class="table mt-5" *ngIf="!loading && heros.length > 0" >
     <thead class="table-dark">
       <tr>
         <th scope="col">#</th>
@@ -18,19 +18,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>@mdo</td>
+      <tr *ngFor="let hero of heros; let i=index">
+        <th scope="row">{{ i }}</th>
+        <td>{{ hero.name  }}</td>
+        <td>{{ hero.power }}</td>
+        <td>
+          <span class="badge bg-success" *ngIf="hero.alive">Alive</span>
+          <span class="badge bg-danger" *ngIf="!hero.alive">Dead</span>
+        </td>
+        <td>
+          <button class="btn btn-info" [routerLink]="['/heroe', hero.id]">
+            <i class="fa fa-pen"></i>
+          </button>
+          <button class="btn btn-danger" (click)="removeHero( hero, i )">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
       </tr>
       
     </tbody>
   </table>
   
 
-  <div class="alert alert-warning text-center mt-3">
+  <div class="alert alert-warning text-center mt-3" *ngIf="!loading && heros.length === 0">
       <h4 class="alert-heading">No hay registros</h4>
       <p>
           <i class="fa fa-exclamation fa-2x"></i>
@@ -38,7 +48,7 @@
   </div>
 
 
-  <div class="alert alert-info text-center mt-3">
+  <div class="alert alert-info text-center mt-3" *ngIf="loading">
       <h4 class="alert-heading">Cargando</h4>
       <p>
           <i class="fa fa-sync-alt fa-spin fa-2x"></i>
