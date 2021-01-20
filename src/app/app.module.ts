@@ -9,20 +9,14 @@ import { HttpClientModule } from "@angular/common/http";
 
 // Importar los componentes
 import { AppComponent } from './app.component';
-import { HeroeComponent } from './pages/heroe/heroe.component';
-import { HeroesComponent } from './pages/heroes/heroes.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeroeComponent,
-    HeroesComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+    AppRoutingModule
   ],
   providers: [
   ],
